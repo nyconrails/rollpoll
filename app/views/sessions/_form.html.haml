@@ -1,4 +1,6 @@
-= simple_form_for :session, :url => sessions_path do |f|
-  = f.input :email
-  = f.input :password
-  = f.submit "Login"
+.slim_form
+  = simple_form_for :session, :url => sessions_path do |f|
+    = f.input :email, label: false, placeholder: "email *"
+    = f.input :password, label: false, placeholder: "password *"
+    .submit
+      = f.submit 'LOGIN', class: "submit"

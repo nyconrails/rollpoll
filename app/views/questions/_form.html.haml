@@ -1,16 +1,56 @@
-= form_for @question do |f|
-  -if @question.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@question.errors.count, "error")} prohibited this question from being saved:"
-      %ul
-        - @question.errors.full_messages.each do |msg|
-          %li= msg
+.wide_form
+  = simple_form_for @question do |f|
+    -if @question.errors.any?
+      #error_explanation
+        .error= "#{pluralize(@question.errors.count, "error")} stopped this question from being saved:"
+        %ul
+          - @question.errors.full_messages.each do |msg|
+            %li= msg
+    - else
+      #instructions Note: Please supply a minimum of two answers for your question.
 
-  .field
-    = f.label :user_id
-    = f.number_field :user_id
-  .field
-    = f.label :question
-    = f.text_field :question
-  .actions
-    = f.submit 'Save'
+    .large= f.input :question, as: :text, label: false, placeholder: 'Your Question', input_html: { :class => 'large' }, maxlength: 320
+
+    .small.clearfix
+      .grid_8.alpha
+        = f.simple_fields_for :answers, @question.answers.new do |a|
+          = a.input :answer, label: false, placeholder: "Answer option 1 *", required: true
+
+      .grid_8.omega
+        = f.simple_fields_for :answers, @question.answers.new do |a|
+          = a.input :answer, label: false, placeholder: "Answer option 2 *", required: true
+
+      .grid_8.alpha
+        = f.simple_fields_for :answers, @question.answers.new do |a|
+          = a.input :answer, label: false, placeholder: "Answer option 3 (optional)", required: false
+
+      .grid_8.omega
+        = f.simple_fields_for :answers, @question.answers.new do |a|
+          = a.input :answer, label: false, placeholder: "Answer option 4 (optional)", required: false
+
+    .submit
+      = f.submit 'ASK QUESTION!', class: "submit"
+
+
+
+:javascript
+  $(document).ready(function() {
+
+    $qbox = $('.large :input');
+
+    $($qbox).css({padding: '35px 0px', height: '20px'});
+
+    $($qbox).keydown(function() {
+      var l = $(this).val().length;
+
+      if (l < 85) {
+        $($qbox).css({padding: '35px 0px', height: '20px'});
+      } else if (l < 160) {
+        $($qbox).css({padding: '20px 0px', height: '40px'});
+      } else {
+        $($qbox).css({padding: '18px 0px', height: '60px'});
+      }
+
+    });
+
+  });

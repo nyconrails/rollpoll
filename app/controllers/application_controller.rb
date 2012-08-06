@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
+  before_filter :authenticate_user!
 
   def authenticate_user!
     reset_session unless session[:last_page_load].present? && session[:last_page_load] > 1.day.ago
@@ -17,7 +18,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
   def logged_in?
-    @current_user.present?
+    current_user.present?
   end
   helper_method :logged_in?
 

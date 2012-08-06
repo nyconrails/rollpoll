@@ -1,25 +1,64 @@
-= form_for @user do |f|
-  -if @user.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@user.errors.count, "error")} prohibited this user from being saved:"
-      %ul
-        - @user.errors.full_messages.each do |msg|
-          %li= msg
+.slim_form
+  = simple_form_for @user do |f|
+    = f.input :username, label: false, placeholder: "username *"
+    = f.input :email, label: false, placeholder: "email *"
+    = f.input :password, label: false, placeholder: "password *"
+    = f.input :password_confirmation, label: false, placeholder: "confirm password *"
+    = f.input :zip, label: false, placeholder: "zip *"
+    = f.input :dob, label: "dob", wrapper_html: { class: 'select_wrapper' }, :start_year => Time.now.year - 60, :end_year => Time.now.year - 10, order: [:month, :day, :year], :prompt => true
+    = f.input :gender, :collection => ['Male', 'Female'], label: 'gender', wrapper_html: { class: 'select_wrapper' }
+    .submit
+      = f.submit 'REGISTER', class: "submit"
 
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :password_digest
-    = f.text_field :password_digest
-  .field
-    = f.label :zip
-    = f.text_field :zip
-  .field
-    = f.label :dob
-    = f.date_select :dob
-  .field
-    = f.label :gender
-    = f.text_field :gender
-  .actions
-    = f.submit 'Save'
+:javascript
+  $(document).ready(function() {
+
+    $(":input").blur(function() {
+
+      var this_id = $(this).attr('id');
+
+      if (this_id == 'user_email') {
+        if ( $(this).val() != '' && validateEmail($(this).val())) {
+          $(this).addClass('green');
+        } else {
+          $(this).removeClass('green').addClass('red');
+        }
+
+      } else if (this_id == 'user_password_confirmation') {
+        if ($('#user_password_confirmation').val() == $('#user_password').val()) {
+          $('#user_password_confirmation').addClass('green');
+        } else {
+          $('#user_password_confirmation').removeClass('green').addClass('red');
+        }
+
+      } else if (this_id == 'user_username') {
+        $.get('/users/username_check/' + $.trim($(this).val()), function(response) {
+
+          if (response.free) {
+            $('#user_username').css({ color: "#1aba00" }).addClass('green');
+          } else {
+            $('#user_username')
+              .animate({ color: "#f5f5f5" }, function() {
+                $('#user_username').val('username taken - try again').animate({ color: "#F00" });
+              });
+          }
+        });
+
+      } else {
+        if ( $(this).val() != '') {
+          $(this).addClass('green');
+        } else {
+          $(this).removeClass('green');
+        }
+      }
+
+    });
+
+
+    $('#user_username').click(function() {
+      if ($(this).val() == 'username taken - try again') {
+        $(this).css({ color: "#000" }).val('');
+      }
+    });
+
+  });

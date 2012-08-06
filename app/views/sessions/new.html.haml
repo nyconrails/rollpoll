@@ -1,5 +1,8 @@
 .container_16
-  .grid_16
-    %h1 Login
-
+  .grid_8.suffix_4.prefix_4
+    %h4 Login
     = render 'form'
+
+    .signupnow
+      or
+      = link_to "sign up now", registration_path
