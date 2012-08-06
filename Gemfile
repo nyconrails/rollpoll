@@ -11,7 +11,7 @@ gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'gon'
 gem "inherited_resources"
 gem 'kaminari'
-#gem 'mysql2'
+gem 'mysql2'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
