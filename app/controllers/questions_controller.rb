@@ -1,4 +1,5 @@
 class QuestionsController < InheritedResources::Base
+  actions :new, :index, :create, :show
 
   def new
     @question = current_user.questions.new

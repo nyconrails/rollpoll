@@ -1,7 +1,7 @@
 class Question < ActiveRecord::Base
 
   belongs_to :user, :counter_cache => true
-  has_many :answers
+  has_many :answers, :dependent => :destroy
 
   attr_accessible :question, :answers_attributes
   accepts_nested_attributes_for :answers
@@ -15,6 +15,8 @@ class Question < ActiveRecord::Base
   before_create :clean_answers
 
 
+
+  ## add a def get-random which gets a random while user!= current & answers wasn't voted on already by this user.
 
   private
     def valid_answers
@@ -30,5 +32,6 @@ class Question < ActiveRecord::Base
         a.destroy if a.answer.blank?
       end
     end
+
 
 end

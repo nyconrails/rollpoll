@@ -4,7 +4,7 @@ class UsersController < InheritedResources::Base
   skip_before_filter :authenticate_user!
 
   def username_check
-    user = User.where("username = ?", params[:uname])
+    user = User.where("username = ?", params[:uname]).first
     if user.present?
       render :json => { free: false }
     else

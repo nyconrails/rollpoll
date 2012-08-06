@@ -1,0 +1,12 @@
+%p.question_instructions You have 10 seconds to answer:
+#show_question
+
+  .question.clearfix
+    .inner= @question.question
+
+  .answers.clearfix
+    - @question.answers.each do |a|
+      .grid_8{ class: cycle('alpha', 'omega') }
+        .answer= link_to a.answer, vote_question_answer_path(@question, a)
+
+

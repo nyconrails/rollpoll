@@ -1,13 +1,17 @@
 Rollpoll::Application.routes.draw do
 
   resources :topics
-  resources :votes
-  resources :answers
-  resources :questions
+  resources :sessions
+
+  resources :questions, except: [:edit, :destroy] do
+    resources :answers, only: :show do
+      get :vote, on: :member, as: :vote
+    end
+  end
+
   resources :users, only: [:new, :index, :create, :show] do
     get :username_check, on: :collection
   end
-  resources :sessions
 
   match '/login' => "sessions#new", as: :login
   match '/logout' => "sessions#destroy", as: :logout
