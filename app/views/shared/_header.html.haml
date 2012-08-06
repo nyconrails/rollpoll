@@ -1,0 +1,20 @@
+#header
+
+  .header_content
+    .container_12
+      .grid_2
+        .logo= link_to (image_tag 'logo.png'), root_path
+      .grid_10
+        %ul.nav
+          %li
+            - if logged_in?
+              = link_to "Your Account", "#"
+            - else
+              = link_to "Login", login_path
+          %li &bull;
+          %li= link_to "Browse Topics", topics_path
+          %li &bull;
+          %li= link_to "Ask a Question", new_question_path
+
+
+  .header_border

@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Email:
+  = @user.email
+%p
+  %b Password digest:
+  = @user.password_digest
+%p
+  %b Zip:
+  = @user.zip
+%p
+  %b Dob:
+  = @user.dob
+%p
+  %b Gender:
+  = @user.gender
+
+= link_to 'Edit', edit_user_path(@user)
+\|
+= link_to 'Back', users_path
