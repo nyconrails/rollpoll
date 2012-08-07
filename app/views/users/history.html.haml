@@ -1,0 +1,24 @@
+#questions
+  .container_16
+    .grid_16
+
+      %h1 YOUR HISTORY
+
+      %p
+      %h3 Questions you asked
+      - if @questions_asked.any?
+        - @questions_asked.each do |q|
+          %p= link_to q.question, question_path(q)
+      - else
+        %p You have not asked any questions yet.
+
+      %p &nbsp;
+      %p &nbsp;
+      %h3 Questions you answered
+      - if @questions_answered.any?
+        - @questions_answered.each do |q|
+          %p
+            = link_to q.question, question_path(q)
+            %span.already_voted ALREADY VOTED
+      - else
+        %p You have not answered any questions yet.

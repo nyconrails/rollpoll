@@ -15,20 +15,25 @@ class UsersController < InheritedResources::Base
   def create
     @user = User.new(params[:user])
 
-    respond_to do |format|
-      if @user.save
-        session[:user_id] = @user.id
-        session[:last_page_load] = Time.now
-        flash[:success] = "Your account has been created successfully."
-        redirect_to root_path
-      else
-        render :action => "new"
-      end
+    if @user.save
+      session[:user_id] = @user.id
+      session[:last_page_load] = Time.now
+      flash[:success] = "Your account has been created successfully."
+      redirect_to root_path
+    else
+      render :action => "new"
     end
   end
 
   def show
     authenticate_user!
+  end
+
+  def history
+    authenticate_user!
+    @questions_asked = Question.where(:user_id => current_user.id).order("created_at desc")
+    user_votes = Vote.where(:user_id => current_user.id).map(&:question_id)
+    @questions_answered = Question.find(user_votes).sort_by(&:created_at).reverse
   end
 
 end

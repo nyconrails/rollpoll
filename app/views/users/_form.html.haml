@@ -4,9 +4,9 @@
     = f.input :email, label: false, placeholder: "email *"
     = f.input :password, label: false, placeholder: "password *"
     = f.input :password_confirmation, label: false, placeholder: "confirm password *"
-    = f.input :zip, label: false, placeholder: "zip *"
-    = f.input :dob, label: "dob", wrapper_html: { class: 'select_wrapper' }, :start_year => Time.now.year - 60, :end_year => Time.now.year - 10, order: [:month, :day, :year], :prompt => true
-    = f.input :gender, :collection => ['Male', 'Female'], label: 'gender', wrapper_html: { class: 'select_wrapper' }
+    =# f.input :zip, label: false, placeholder: "zip *"
+    =# f.input :dob, label: "dob", wrapper_html: { class: 'select_wrapper' }, :start_year => Time.now.year - 60, :end_year => Time.now.year - 10, order: [:month, :day, :year], :prompt => true
+    =# f.input :gender, :collection => ['Male', 'Female'], label: 'gender', wrapper_html: { class: 'select_wrapper' }
     .submit
       = f.submit 'REGISTER', class: "submit"
 

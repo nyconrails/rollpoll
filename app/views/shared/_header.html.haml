@@ -8,11 +8,13 @@
         %ul.nav
           %li
             - if logged_in?
-              = link_to "Your Account", "#"
+              = link_to "Your Account", history_users_path
             - else
               = link_to "Login", login_path
           %li &bull;
-          %li= link_to "Browse Topics", topics_path
+          %li= link_to "Random", root_path
+          %li &bull;
+          %li= link_to "Browse", questions_path
           %li &bull;
           %li= link_to "Ask a Question", new_question_path
 

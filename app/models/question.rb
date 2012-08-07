@@ -15,8 +15,13 @@ class Question < ActiveRecord::Base
   before_create :clean_answers
 
 
+  def already_voted(user)
+    Vote.where("user_id = ? AND question_id = ?", user.id, self.id).first
+  end
 
-  ## add a def get-random which gets a random while user!= current & answers wasn't voted on already by this user.
+  def is_mine?(user)
+    user_id == user.id
+  end
 
   private
     def valid_answers

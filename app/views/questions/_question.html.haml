@@ -1,12 +1,27 @@
 %p.question_instructions You have 10 seconds to answer:
-#show_question
+.clearfix#show_question
 
-  .question.clearfix
+  .clearfix.question{ "data-pinging" => "true", "data-logged-in" => logged_in?.to_s }
     .inner= @question.question
+
+  #timer
+    #spinner
+
+  .results.clearfix
+    .result1.grid_8.alpha
+      %p
+    .result2.grid_8.omega
+      %p
 
   .answers.clearfix
     - @question.answers.each do |a|
       .grid_8{ class: cycle('alpha', 'omega') }
-        .answer= link_to a.answer, vote_question_answer_path(@question, a)
+        .answer{ "data-votes" => (a.votes_count.to_i > 0 ? a.votes_count : 0) }= link_to a.answer, vote_question_answer_path(@question, a)
 
+  .results.clearfix
+    .result3.grid_8.alpha
+      %p
+    .result4.grid_8.omega
+      %p
 
+  .grid_16.skip_this_question or #{ link_to "skip this question", '', class: 'skip_question' }.

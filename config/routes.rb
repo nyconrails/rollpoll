@@ -4,6 +4,8 @@ Rollpoll::Application.routes.draw do
   resources :sessions
 
   resources :questions, except: [:edit, :destroy] do
+    get :next, on: :collection
+    get :ninja, on: :collection
     resources :answers, only: :show do
       get :vote, on: :member, as: :vote
     end
@@ -11,6 +13,7 @@ Rollpoll::Application.routes.draw do
 
   resources :users, only: [:new, :index, :create, :show] do
     get :username_check, on: :collection
+    get :history, on: :collection
   end
 
   match '/login' => "sessions#new", as: :login

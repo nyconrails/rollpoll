@@ -1,21 +1,11 @@
-%h1 Listing questions
+#questions
+  .container_16
+    .grid_16
 
-%table
-  %tr
-    %th User
-    %th Question
-    %th
-    %th
-    %th
+      %h1 Browse All Questions
 
-  - @questions.each do |question|
-    %tr
-      %td= question.user_id
-      %td= question.question
-      %td= link_to 'Show', question
-      %td= link_to 'Edit', edit_question_path(question)
-      %td= link_to 'Destroy', question, :confirm => 'Are you sure?', :method => :delete
-
-%br
-
-= link_to 'New Question', new_question_path
+      - @questions.order("created_at desc").each do |q|
+        %p
+          = link_to q.question, question_path(q)
+          - if q.already_voted(current_user)
+            %span.already_voted ALREADY VOTED

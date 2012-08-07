@@ -1,4 +1,65 @@
 .container_16
 
   .grid_16
-    = render @question
+    - logger.debug "******* #{@question.is_mine?(current_user)}"
+    - if @question.is_mine?(current_user) || @already_voted.present?
+      .clearfix#show_question_nojs
+
+        .clearfix.question
+          .inner= @question.question
+
+        %p.question_instructions
+          - if @question.user_id == current_user.try(:id)
+            This is your question. <br />You cannot vote on it.
+          - else
+            You already voted on this question.
+
+        .results.clearfix
+          .result1.grid_8.alpha
+            %p
+          .result2.grid_8.omega
+            %p
+
+        .answers.clearfix
+          - @question.answers.each do |a|
+            .grid_8{ class: cycle('alpha', 'omega') }
+              - klass = a.id == @already_voted.try(:answer_id) ? 'active' : ''
+              .answer{ :class => klass, "data-votes" => (a.votes_count.to_i > 0 ? a.votes_count : 0) }= a.answer
+
+        .results.clearfix
+          .result3.grid_8.alpha
+            %p
+          .result4.grid_8.omega
+            %p
+
+        .grid_16.skip_this_question= link_to "Click for more questions.", root_path
+
+
+
+    - else
+      .clearfix#show_question
+
+        .clearfix.question{ "data-pinging" => "false", "data-logged-in" => logged_in?.to_s }
+          .inner= @question.question
+
+        #timer
+          #spinner
+
+        .results.clearfix
+          .result1.grid_8.alpha
+            %p
+          .result2.grid_8.omega
+            %p
+
+        .answers.clearfix
+          - @question.answers.each do |a|
+            .grid_8{ class: cycle('alpha', 'omega') }
+              .answer{ "data-votes" => (a.votes_count.to_i > 0 ? a.votes_count : 0) }= link_to a.answer, vote_question_answer_path(@question, a)
+
+        .results.clearfix
+          .result3.grid_8.alpha
+            %p
+          .result4.grid_8.omega
+            %p
+
+        .grid_16.skip_this_question= link_to "Click for more questions.", root_path

@@ -1,0 +1,33 @@
+
+
+/*
+  countdown
+*/
+
+#countdown_timer {
+  position: relative;
+  width: 120px;
+  height: 100px;
+  overflow: hidden;
+  margin: 20px auto 0px auto;
+}
+
+.time_block {
+  float: left;
+  padding: 0;
+}
+
+.countdown .time_block:first-child {
+  margin-left: 0;
+}
+
+.time_block_number {
+  padding: 0;
+}
+
+.time_block_delimetr {
+  float: left;
+  width: 22px;
+  padding: 0 21px;
+  margin-top: 10px;
+}

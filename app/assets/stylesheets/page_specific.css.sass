@@ -12,7 +12,7 @@
       text-decoration: none
 
 
-#show_question
+#show_question, #show_question_nojs
   width: 100%
   background: #f5f5f5
   padding: 40px 0px
@@ -21,6 +21,20 @@
   border: 1px solid #dcdcdc
   -webkit-box-shadow: inset 0px 0px 6px 2px rgba(216, 216, 216, 0.6)
   box-shadow: inset 0px 0px 6px 2px rgba(216, 216, 216, 0.6)
+
+  #timer
+    height: 100px
+    text-align: center
+    position: relative
+
+    #spinner
+      height: 100px
+      width: 100%
+      position: absolute
+      left: 0px
+      top: 0px
+      background: url(image-path('spinner.gif')) no-repeat center 15px
+      display: none
 
   .question
     background: url(image-path('form_field_large.png')) no-repeat center top
@@ -33,9 +47,6 @@
       margin-top: 10px
       text-align: center
 
-  .answers
-    margin: 40px 0px
-
   .answer
     width: 100%
     background: url(image-path('form_field.png')) no-repeat center top
@@ -46,7 +57,6 @@
     line-height: 62px
     @include font_standard
     font-size: 16px
-    cursor: pointer
 
     a
       display: block
@@ -58,3 +68,52 @@
 
     a:hover
       color: #1aba00
+
+  .results
+    font-size: 20px
+    color: #61c01b
+
+    .alpha p
+      padding-left: 20px
+      margin: 0
+
+    .omega p
+      text-align: right
+      padding-right: 20px
+      margin: 0
+
+    .result1, .result2, .result3, .result4
+      display: none
+
+  .skip_this_question
+    @include font_standard
+    margin-top: 20px
+    font-size: 12px
+    text-align: center
+
+    a
+      color: #000
+      text-decoration: underline
+
+    a:hover
+      text-decoration: none
+
+
+#show_question_nojs
+
+  .question_instructions
+    text-align: center
+    margin-top: 40px
+
+  .answer.active
+    color: #61c01b
+
+#questions
+  .already_voted
+    color: #FFF
+    font-size: 12px
+    background: $main_color
+    padding: 2px 4px
+    display: inline-block
+    letter-spacing: -1px
+    margin-left: 6px
