@@ -8,7 +8,10 @@
         %ul.nav
           %li
             - if logged_in?
-              = link_to "Your Account", history_users_path
+              - if current_page? history_users_path
+                = link_to "Logout", logout_path, style: 'color: red'
+              - else
+                = link_to "Your Account", history_users_path
             - else
               = link_to "Login", login_path
           %li &bull;
