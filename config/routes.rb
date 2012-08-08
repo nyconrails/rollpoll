@@ -16,6 +16,7 @@ Rollpoll::Application.routes.draw do
     get :history, on: :collection
   end
 
+  match '/about' => "pages#about", as: :about
   match '/login' => "sessions#new", as: :login
   match '/logout' => "sessions#destroy", as: :logout
   match '/registration' => "users#new", as: :registration
