@@ -1,9 +1,9 @@
 class AnswersController < InheritedResources::Base
   actions :show
 
-  def vote
-    authenticate_user!
+  before_filter :authenticate_user!
 
+  def vote
     answer = Answer.find(params[:id])
     if answer
       # answers = answer.question.answers.map(&:id)

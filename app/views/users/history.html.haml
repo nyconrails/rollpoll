@@ -8,7 +8,9 @@
       %h3 Questions you asked
       - if @questions_asked.any?
         - @questions_asked.each do |q|
-          %p= link_to q.question, question_path(q)
+          %p
+            = link_to q.question, question_path(q)
+            %span.your_question YOUR QUESTION
       - else
         %p You have not asked any questions yet.
 

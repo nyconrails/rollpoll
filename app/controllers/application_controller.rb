@@ -1,8 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
-  before_filter :authenticate_user!
-
   def authenticate_user!
     reset_session unless session[:last_page_load].present? && session[:last_page_load] > 1.day.ago
     session[:last_page_load] = Time.now
@@ -36,6 +34,7 @@ class ApplicationController < ActionController::Base
       vote = Vote.where("user_id = ? AND question_id = ?", uid, question.id).first
       count += 1
     end while count < 40 && (question.user_id == uid || vote.present?)
+
     if count < 40
       question
     else

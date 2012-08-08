@@ -1,15 +1,13 @@
 class QuestionsController < InheritedResources::Base
   actions :new, :index, :create, :show
 
-  skip_before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:new, :create, :show]
 
   def new
-    authenticate_user!
     @question = current_user.questions.new
   end
 
   def create
-    authenticate_user!
     @question = current_user.questions.create(params[:question])
 
     if @question.save

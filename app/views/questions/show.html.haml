@@ -1,7 +1,6 @@
 .container_16
 
   .grid_16
-    - logger.debug "******* #{@question.is_mine?(current_user)}"
     - if @question.is_mine?(current_user) || @already_voted.present?
       .clearfix#show_question_nojs
 

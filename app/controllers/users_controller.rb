@@ -1,7 +1,7 @@
 class UsersController < InheritedResources::Base
   actions :new, :index, :create, :show
 
-  skip_before_filter :authenticate_user!
+  before_filter :authenticate_user!, only: [:show, :history]
 
   def username_check
     user = User.where("username = ?", params[:uname]).first

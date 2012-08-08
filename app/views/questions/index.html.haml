@@ -7,5 +7,7 @@
       - @questions.order("created_at desc").each do |q|
         %p
           = link_to q.question, question_path(q)
-          - if q.already_voted(current_user)
+          - if logged_in? && q.already_voted(current_user)
             %span.already_voted ALREADY VOTED
+          - elsif logged_in? && q.is_mine?(current_user)
+            %span.your_question YOUR QUESTION
