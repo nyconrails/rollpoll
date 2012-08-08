@@ -1,7 +1,5 @@
 class RemoveExtraUser < ActiveRecord::Migration
-  def up
-  end
-
-  def down
+  def change
+    remove_column :answers, :user_id
   end
 end
