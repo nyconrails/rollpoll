@@ -1,0 +1,23 @@
+.form-horizontal
+  = simple_form_for([:admin, @administrator]) do |f|
+
+    .form-inputs
+      .control-group
+        = f.label :name, class: 'control-label'
+        .controls= f.input :name, label: false
+
+      .control-group
+        = f.label :username, class: 'control-label'
+        .controls= f.input :username, label: false
+
+      .control-group
+        = f.label :password, class: 'control-label'
+        .controls= f.input :password, label: false
+
+      .control-group
+        = f.label :password_confirmation, class: 'control-label'
+        .controls= f.input :password_confirmation, label: false
+
+    .form-actions
+      = f.button :submit, class: 'btn btn-success'
+

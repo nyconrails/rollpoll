@@ -1,0 +1,16 @@
+.form-horizontal
+  = simple_form_for([:admin, @user]) do |f|
+
+    .form-inputs
+      - attrs = %w( username email dob zip ).each do |v|
+        .control-group
+          = f.label v, class: 'control-label'
+          .controls= f.input v, label: false
+
+
+    .form-actions
+      = f.button :submit, class: 'btn btn-success'
+
+
+
+

@@ -1,0 +1,7 @@
+%h1 Editing Admin
+
+= render 'form'
+
+.buttons
+  = link_to 'View Admin', admin_administrator_path(@administrator), class: 'btn btn-primary'
+  = link_to 'Delete Admin', admin_administrator_path(@administrator), :method => :delete, :confirm => "Are you sure?", class: 'btn btn-danger'

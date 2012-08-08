@@ -1,0 +1,37 @@
+%p
+.form-horizontal
+  = simple_form_for([:admin, @post]) do |f|
+
+    .form-inputs
+      .control-group
+        = f.label :title, class: 'control-label'
+        .controls= f.input :title, label: false
+
+      .control-group
+        = f.label :teaser, class: 'control-label'
+        .controls= f.input :teaser, label: false, input_html: { class: 'tinymce large' }
+
+      .control-group
+        = f.label :body, class: 'control-label'
+        .controls= f.input :body, label: false, input_html: { class: 'tinymce large' }
+
+      .control-group
+        = f.label :banner, class: 'control-label'
+        .controls= f.input :banner, label: false
+
+      .control-group
+        = f.label 'Tags', class: 'control-label'
+        .controls= f.association :tags, label: false
+
+      .control-group
+        = f.label 'Authors', class: 'control-label'
+        .controls= f.association :administrators, as: :check_boxes, label: false
+
+      .control-group
+        = f.label 'Published ?', class: 'control-label'
+        .controls= f.input :published, label: false
+
+    .form-actions
+      = f.button :submit, class: 'btn btn-success'
+
+  = tinymce

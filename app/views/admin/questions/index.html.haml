@@ -1,0 +1,19 @@
+%h1 All Questions
+
+%table.table
+  %thead
+    %tr
+      %th Question
+      %th Asker
+      %th Votes
+      %th{ style: 'width: 14%' } Actions
+
+  - @questions.each do |question|
+    %tr
+      %td= question.question
+      %td= question.user.username
+      %td= question.answers.reduce(0) { |sum, x| sum + x.votes_count.to_i }
+      %td
+        = link_to 'Show', admin_question_path(question), class: 'btn btn-primary'
+        =# link_to 'Edit', edit_admin_question_path(question), class: 'btn btn-warning'
+        = link_to 'Destroy', admin_question_path(question), :confirm => "Are you sure? This will delete the question, its answers, and all related votes.", :method => :delete, class: 'btn btn-danger'

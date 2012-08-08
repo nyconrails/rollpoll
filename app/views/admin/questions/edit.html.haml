@@ -1,0 +1,7 @@
+%h1 Editing Question
+
+= render 'form'
+
+.buttons
+  = link_to 'View Post', admin_question_path(@question), class: 'btn btn-primary'
+  = link_to 'Delete Post', admin_question_path(@question), :method => :delete, :confirm => "Are you sure?", class: 'btn btn-danger'

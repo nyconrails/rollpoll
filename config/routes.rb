@@ -21,6 +21,19 @@ Rollpoll::Application.routes.draw do
   match '/registration' => "users#new", as: :registration
   match '/users/username_check/:uname' => 'users#username_check'
 
+
+  namespace :admin do
+    resources :administrators
+    resources :questions
+    resources :users
+    resources :sessions
+
+    match '/login' => "sessions#new", as: :login
+    match '/logout' => "sessions#destroy", as: :logout
+
+    root :to => 'users#index'
+  end
+
   root :to => 'pages#index'
 
 end

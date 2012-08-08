@@ -1,0 +1,19 @@
+%h1 All Administrators
+
+= link_to 'New Administrator', new_admin_administrator_path, class: 'btn btn-large btn-info pull-right'
+
+%table.table
+  %thead
+    %tr
+      %th Name
+      %th Username
+      %th{width: '30%'} Actions
+
+  - @administrators.each do |admin|
+    %tr
+      %td= admin.name
+      %td= admin.username
+      %td
+        = link_to 'Show', admin_administrator_path(admin), class: 'btn btn-primary'
+        = link_to 'Edit', edit_admin_administrator_path(admin), class: 'btn btn-warning'
+        = link_to 'Destroy', admin_administrator_path(admin), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'

@@ -1,0 +1,36 @@
+%h1= @question.question
+
+.nice_spacings
+  .group
+    .title ID:
+    .body= @question.id
+
+  .group
+    .title Question:
+    .body= @question.question
+
+  .group
+    .title Asker:
+    .body= @question.user.username
+
+  .group
+    .title Created At:
+    .body= @question.created_at
+
+  - @question.answers.each_with_index do |a, i|
+    .group
+      .title Answer #{i+1}:
+      .body
+        %strong Answer:
+        = a.answer
+        %br
+        %strong Votes:
+        = a.votes_count.to_i
+
+
+
+
+.left_buttons
+  = link_to 'Back', admin_questions_path, class: 'btn btn-inverse'
+  =# link_to 'Edit', edit_admin_question_path(@question), class: 'btn btn-warning'
+  = link_to 'Destroy', admin_question_path(@question), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'

@@ -1,0 +1,7 @@
+%h1 Editing User
+
+= render 'form'
+
+.buttons
+  = link_to 'View User', admin_user_path(@user), class: 'btn btn-primary'
+  = link_to 'Delete User', admin_user_path(@user), :method => :delete, :confirm => "Are you sure?", class: 'btn btn-danger'

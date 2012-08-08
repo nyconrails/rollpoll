@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120807201619) do
+ActiveRecord::Schema.define(:version => 20120808142316) do
+
+  create_table "administrators", :force => true do |t|
+    t.string   "name"
+    t.string   "username"
+    t.string   "password_digest"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+  end
+
+  add_index "administrators", ["username"], :name => "index_administrators_on_username", :unique => true
 
   create_table "answers", :force => true do |t|
     t.integer  "question_id"

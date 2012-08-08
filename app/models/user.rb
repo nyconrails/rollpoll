@@ -8,11 +8,18 @@ class User < ActiveRecord::Base
   attr_accessible :dob, :email, :gender, :password_digest, :zip, :password, :password_confirmation, :username
 
   # validates :username, :email, :password, :password_confirmation, :zip, :gender, :dob, presence: true
-  validates :username, :email, :password, :password_confirmation, presence: true
+  validates :username, :email, presence: true
   validates :username, :uniqueness => true
-  validates :password, :confirmation => true
   validates :email, email: true
 
+  validates :password, :password_confirmation, presence: true, :if => :is_new_record
+  validates :password, :confirmation => true, :if => :is_new_record
 
+
+
+  private
+    def is_new_record
+      new_record?
+    end
 
 end

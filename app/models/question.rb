@@ -2,6 +2,7 @@ class Question < ActiveRecord::Base
 
   belongs_to :user, :counter_cache => true
   has_many :answers, :dependent => :destroy
+  has_many :votes, :through => :answers
 
   attr_accessible :question, :answers_attributes
   accepts_nested_attributes_for :answers

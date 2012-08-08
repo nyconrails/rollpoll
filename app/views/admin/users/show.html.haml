@@ -1,0 +1,15 @@
+%h1= @user.username
+
+.nice_spacings
+  - sort_order = ['id', 'username', 'email', 'dob', 'zip', 'gender', 'questions_count', 'votes_count', 'created_at']
+  - @user.attributes.except('password_digest', 'updated_at').sort_by { |k,v| sort_order.index(k) }.each do |k,v|
+    - if sort_order.include?(k)
+      .group
+        .title= k.humanize.titleize + ':'
+        .body= v
+
+
+.left_buttons
+  = link_to 'Back', admin_users_path, class: 'btn btn-inverse'
+  = link_to 'Edit', edit_admin_user_path(@user), class: 'btn btn-warning'
+  = link_to 'Destroy', admin_user_path(@user), :confirm => 'Are you sure?', :method => :delete, class: 'btn btn-danger'
