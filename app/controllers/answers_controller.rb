@@ -11,7 +11,7 @@ class AnswersController < InheritedResources::Base
       already_voted = Vote.where("user_id = ? AND question_id = ?", current_user.id, answer.question.id).first
       answer.votes.create(:user_id => current_user.id, question_id: answer.question.id) if already_voted.blank?
     end
-    redirect_to root_path
+    render :nothing => true
   end
 
 end

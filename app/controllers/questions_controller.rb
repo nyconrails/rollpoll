@@ -24,7 +24,7 @@ class QuestionsController < InheritedResources::Base
     if @question.present?
       session[:last_q_shown] = @question.id
       answers = @question.answers.each.map { |a| { :answer => a.answer, :id => a.id, :votes => (a.votes_count.to_i > 0 ? a.votes_count : 0) }  }
-      render :json => { :question => { :question => @question.id, :slug => @question.slug, :answers => answers } }
+      render :json => { :question => { :question => @question.question, :slug => @question.slug, :answers => answers } }
     else
       render :json => { :question => false }
     end
