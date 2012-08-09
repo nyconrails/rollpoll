@@ -1,4 +1,9 @@
-.container_16
-  .grid_8.suffix_4.prefix_4
-    %h4 Registration
-    = render 'form'
+#login
+  .container_16
+    .grid_8.suffix_4.prefix_4
+      %h4 Registration
+      = render 'form'
+
+      .signupnow
+        already have an account?
+        = link_to "login", login_path

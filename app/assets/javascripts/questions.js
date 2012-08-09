@@ -283,7 +283,7 @@ $(document).ready(function() {
       }
 
       if ($($question).attr('data-logged-in') == 'false') {
-        window.location.href = '/login'
+        window.location.href = '/registration'
       }
 
       $.get($(this).attr('href'));
