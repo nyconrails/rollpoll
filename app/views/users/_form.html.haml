@@ -1,9 +1,9 @@
 .slim_form
   = simple_form_for @user do |f|
-    = f.input :username, label: false, placeholder: "username *"
-    = f.input :email, label: false, placeholder: "email *"
-    = f.input :password, label: false, placeholder: "password *"
-    = f.input :password_confirmation, label: false, placeholder: "confirm password *"
+    = f.input :username, label: "username:"
+    = f.input :email, label: "email:"
+    = f.input :password, label: "password:", required: true
+    = f.input :password_confirmation, label: 'confirm password:', required: true
     =# f.input :zip, label: false, placeholder: "zip *"
     =# f.input :dob, label: "dob", wrapper_html: { class: 'select_wrapper' }, :start_year => Time.now.year - 60, :end_year => Time.now.year - 10, order: [:month, :day, :year], :prompt => true
     =# f.input :gender, :collection => ['Male', 'Female'], label: 'gender', wrapper_html: { class: 'select_wrapper' }

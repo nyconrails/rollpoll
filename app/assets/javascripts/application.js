@@ -15,6 +15,36 @@
 //= require jquery_ujs
 //= require_tree .
 
+$(document).ready(function() {
+  $('[placeholder]').each(function() {
+    var tx = $(this).attr('placeholder');
+    $(this).attr('data-placeholder', tx).attr('placeholder', '');
+    if ( $(this).val() == '' ) {
+      $(this).addClass('placeholder').val(tx);
+    }
+  });
+
+  $('[placeholder]').focus(function() {
+    var input = $(this);
+    if (input.val() == input.attr('data-placeholder')) {
+      input.val('');
+      input.removeClass('placeholder');
+    }
+  }).blur(function() {
+    var input = $(this);
+    if (input.val() == '' || input.val() == input.attr('data-placeholder')) {
+      input.addClass('placeholder');
+      input.val(input.attr('data-placeholder'));
+    }
+  }).blur().parents('form').submit(function() {
+    $(this).find('[placeholder]').each(function() {
+      var input = $(this);
+      if (input.val() == input.attr('data-placeholder')) {
+        input.val('');
+      }
+    })
+  });
+});
 
 function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
