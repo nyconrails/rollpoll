@@ -18,8 +18,8 @@ class Question < ActiveRecord::Base
 
 
   def self.not_voted_on(user, last_q_shown = nil)
-    voted = Vote.where("user_id == ?", user.id).all.map(&:question_id)
-    mine = self.where("user_id == ?", user.id).map(&:id)
+    voted = Vote.where("user_id = ?", user.id).all.map(&:question_id)
+    mine = self.where("user_id = ?", user.id).map(&:id)
 
     avoid = voted | mine
     avoid << last_q_shown if last_q_shown.present?
