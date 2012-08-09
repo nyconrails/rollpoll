@@ -16,6 +16,22 @@ class Question < ActiveRecord::Base
   before_create :clean_answers
 
 
+
+  def self.not_voted_on(user, last_q_shown = nil)
+    voted = Vote.where("user_id == ?", user.id).all.map(&:question_id)
+    mine = self.where("user_id == ?", user.id).map(&:id)
+
+    avoid = voted | mine
+    avoid << last_q_shown if last_q_shown.present?
+
+    self.where("id NOT IN (?)", avoid.presence || '')
+  end
+
+  def self.avoid(avoid_id = nil)
+    # used for not logged in users
+    self.where("id NOT IN (?)", avoid_id.presence || '')
+  end
+
   def already_voted(user)
     Vote.where("user_id = ? AND question_id = ?", user.id, self.id).first
   end
@@ -23,6 +39,7 @@ class Question < ActiveRecord::Base
   def is_mine?(user)
     user_id == user.id
   end
+
 
   private
     def valid_answers

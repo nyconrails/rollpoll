@@ -26,22 +26,4 @@ class ApplicationController < ActionController::Base
   end
 
 
-  def get_new_question
-    count = 0
-    uid = current_user.try(:id) || 0
-    begin
-      question = Question.random
-      vote = Vote.where("user_id = ? AND question_id = ?", uid, question.id).first
-      count += 1
-    end while count < 40 && (question.user_id == uid || vote.present?)
-
-    if count < 40
-      question
-    else
-      nil
-    end
-  end
-
-
-
 end

@@ -19,8 +19,10 @@ class QuestionsController < InheritedResources::Base
   end
 
   def next
-    @question = get_new_question
+    @question = logged_in? ? Question.not_voted_on(current_user, session[:last_q_shown].presence).random : Question.avoid(session[:last_q_shown].presence).random
+
     if @question.present?
+      session[:last_q_shown] = @question.id
       answers = @question.answers.each.map { |a| { :answer => a.answer, :id => a.id, :votes => (a.votes_count.to_i > 0 ? a.votes_count : 0) }  }
       render :json => { :question => { :question => @question.question, :slug => @question.slug, :answers => answers } }
     else
