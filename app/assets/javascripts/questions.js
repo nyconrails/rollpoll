@@ -162,9 +162,9 @@ $(document).ready(function() {
   function get_next_question() {
     $.get('/questions/next/', function(response) {
 
-      if (response.question) {
+      if (response.question.question) {
         // First just reset everything, let's prevent problems
-        var response_params = ['question', 'slug', 'a1', 'a1id', 'a1votes', 'a2', 'a2id', 'a2votes', 'a3', 'a3id', 'a3votes', 'a4', 'a4id', 'a4votes'];
+        var response_params = ['wearedone', 'question', 'slug', 'a1', 'a1id', 'a1votes', 'a2', 'a2id', 'a2votes', 'a3', 'a3id', 'a3votes', 'a4', 'a4id', 'a4votes'];
         $(response_params).each(function(index, value) {
           $question.attr('data-' + value, 'false');
         });
@@ -185,7 +185,7 @@ $(document).ready(function() {
         });
 
       } else {
-        window.location.href = '/questions/ninja';
+        $question.attr('data-wearedone', 'true');
       }
 
     });
@@ -296,6 +296,7 @@ $(document).ready(function() {
       calculate_votes();
 
       if (pinging()) {
+        if ($question.attr('data-wearedone') == 'true') { window.location.href = '/questions/ninja'; }
         setTimeout(function() { show_next_question() }, 3000);
       }
     });
